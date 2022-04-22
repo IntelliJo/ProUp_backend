@@ -20,7 +20,7 @@ public class BaseEntity {
     //SecurityContext에서 현재 로그인한 ID를 가져와 자동으로 넣어줌
     @CreatedBy
     @Column(name = "CONSTRUCTOR", updatable = false)
-    private String contructor;
+    private String constructor;
 
     @LastModifiedBy
     @Column(name = "MODIFIER")
@@ -29,9 +29,9 @@ public class BaseEntity {
     //데이터의 등록시간과 수정시간과 같이 자동으로 추가되고 변경되어야하는 칼럼 처리해주기 위한 Entity
     @CreatedDate
     @Column(name = "REG_DATE", updatable = false)
-    private LocalDateTime reg_date;
+    private LocalDateTime regDate;
 
     @LastModifiedDate
     @Column(name = "MOD_DATE")
-    private LocalDateTime mod_date;
+    private LocalDateTime modDate;
 }
