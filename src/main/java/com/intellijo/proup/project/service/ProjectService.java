@@ -4,6 +4,7 @@ import com.intellijo.proup.project.dto.ProjectDTO;
 import com.intellijo.proup.project.entity.ProjectEntity;
 import com.intellijo.proup.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,8 +39,7 @@ public class ProjectService {
         try {
             projectRepository.deleteById(index);
             result = true;
-        }catch (IllegalArgumentException illegalArgumentException) {
-            illegalArgumentException.printStackTrace();
+        }catch (IllegalArgumentException | EmptyResultDataAccessException exception) {
             result = false;
         }
         return result;

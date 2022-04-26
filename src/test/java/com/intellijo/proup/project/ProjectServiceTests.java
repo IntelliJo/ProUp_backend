@@ -49,9 +49,7 @@ class ProjectServiceTests {
 
         assertTrue(result);
 
-        Boolean deleteProjectById = service.deleteProjectById(2L);
-        assertFalse(deleteProjectById);
-
+        assertFalse(service.deleteProjectById(1L));
         assertThrows(NullPointerException.class,() -> service.getProjectById(1L));
     }
 }
