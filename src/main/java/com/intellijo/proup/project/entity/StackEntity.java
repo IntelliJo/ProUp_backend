@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "TB_STACK")
+@Entity(name = "TB_STACK")
 @NoArgsConstructor
 public class StackEntity extends BaseEntity {
     @Id

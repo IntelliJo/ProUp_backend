@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "TB_PROJECT_STACK")
+@Entity(name = "TB_PROJECT_STACK")
 @NoArgsConstructor
 public class ProjectStackEntity extends BaseEntity {
     @Id

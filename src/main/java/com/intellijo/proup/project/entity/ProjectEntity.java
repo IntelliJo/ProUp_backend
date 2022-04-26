@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "TB_PROJECT")
+@Entity(name = "TB_PROJECT")
 @NoArgsConstructor
 public class ProjectEntity extends BaseEntity {
     @Id
