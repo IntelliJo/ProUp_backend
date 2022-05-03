@@ -2,6 +2,7 @@ package com.intellijo.proup.project.entity;
 
 import com.intellijo.proup.common.entity.BaseEntity;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,13 +11,14 @@ import java.util.List;
 
 @Entity(name = "TB_PROJECT")
 @NoArgsConstructor
+@Getter
 public class ProjectEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long  id;
     private String name;
     private String description;
-    @OneToMany(mappedBy = "stack")
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<ProjectStackEntity> stacks = new ArrayList<>();
 
     @Builder
