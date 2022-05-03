@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class StackEntity extends BaseEntity {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;

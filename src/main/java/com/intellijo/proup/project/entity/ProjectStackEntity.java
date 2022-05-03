@@ -10,13 +10,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ProjectStackEntity extends BaseEntity {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "id")
     private ProjectEntity project;
     @ManyToOne
-    @JoinColumn(name = "id")
     private StackEntity stack;
 
     @Builder
