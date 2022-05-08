@@ -30,9 +30,8 @@ jobs:
           NAME: brinst07
         run: |
           ./gradlew bootjar
-          docker-compose build
-          docker tag proup_backend_api brinst07/proup_api
-          docker push $NAME/proup_api
+          docker build . -t brinst07/proup_api:latest
+          docker push brinst07/proup_api
   
   deploy:
     needs: build
