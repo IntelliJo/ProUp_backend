@@ -53,12 +53,12 @@ jobs:
       #            sudo docker-compose up
       #          '
       - name: Deploy in EC2
-        uses: appleboy/ssh-action@v0.1.4
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.USERNAME }}
+          user: ${{ secrets.USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
-          script: |
+          command: |
             whoami
             ll   
 
