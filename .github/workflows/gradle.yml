@@ -35,7 +35,7 @@ jobs:
   
   deploy:
     needs: build
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     
     steps:
       - uses: actions/checkout@v2
@@ -44,7 +44,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
           HOSTNAME: ${{ secrets.HOSTNAME }}
           USERNAME: ${{ secrets.USERNAME }}
-          AWS_DEFAULT_REGION: ap-northeast-2
+          #          AWS_DEFAULT_REGION: ap-northeast-2
           AWS_EC2_METADATA_DISABLED: true
           
         run: |
