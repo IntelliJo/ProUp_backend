@@ -35,7 +35,7 @@ jobs:
   
   deploy:
     #    needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     
     steps:
       - uses: actions/checkout@v2
@@ -45,7 +45,7 @@ jobs:
           HOSTNAME: ${{ secrets.HOSTNAME }}
           USERNAME: ${{ secrets.USERNAME }}
           AWS_REGION: ap-northeast-2
-          AWS_EC2_METADATA_DISABLED: true
+        #          AWS_EC2_METADATA_DISABLED: true
 
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
