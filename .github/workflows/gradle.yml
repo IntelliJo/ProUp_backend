@@ -34,7 +34,7 @@ jobs:
   #          docker push brinst07/proup_api
   
   deploy:
-    needs: build
+    #    needs: build
     runs-on: ubuntu-latest
     
     steps:
