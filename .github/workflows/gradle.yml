@@ -35,23 +35,32 @@ jobs:
   
   deploy:
     #    needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2
+      #      - uses: actions/checkout@v2
+      #      - name: Deploy in EC2
+      #        env:
+      #          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+      #          HOSTNAME: ${{ secrets.HOSTNAME }}
+      #          USERNAME: ${{ secrets.USERNAME }}
+      #          #          AWS_DEFAULT_REGION: ap-northeast-2
+      #          AWS_EC2_METADATA_DISABLED: true
+      #
+      #        run: |
+      #          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+      #          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+      #            sudo docker-compose up
+      #          '
       - name: Deploy in EC2
-        env:
-          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
-          HOSTNAME: ${{ secrets.HOSTNAME }}
-          USERNAME: ${{ secrets.USERNAME }}
-          AWS_REGION: ap-northeast-2
-        #          AWS_EC2_METADATA_DISABLED: true
-
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            sudo docker-compose up
-          '
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            whoami
+            ll   
 
       - name: action-slack
         uses: 8398a7/action-slack@v3
