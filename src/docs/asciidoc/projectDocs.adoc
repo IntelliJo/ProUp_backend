@@ -1,0 +1,35 @@
+= proUp Project API Server Rest API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[[overview]]
+= Project 관련 API
+
+프로젝트 관련한 API입니다.
+
+[[all_project]]
+== get All Project
+
+Project 전체조회
+
+operation::getAllProject[snippets='http-request,response-fields']
+
+[[create_project]]
+== create Project
+
+프로젝트 생성
+
+operation::createProject[snippets='http-request,response-body,response-fields']
+
+[[update_project]]
+== update Project
+
+프로젝트 수정
+
+operation::updateProject[snippets='http-request,response-fields']

@@ -1,28 +1,36 @@
 package com.intellijo.proup.project.entity;
 
 import com.intellijo.proup.common.entity.BaseEntity;
+import com.intellijo.proup.project.dto.ProjectDTO;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "TB_PROJECT")
+@Entity(name = "TB_PROJECT")
 @NoArgsConstructor
+@Getter
 public class ProjectEntity extends BaseEntity {
     @Id
-    @Column(name = "id", nullable = false)
-    private Long  id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String description;
-    @OneToMany(mappedBy = "stack")
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<ProjectStackEntity> stacks = new ArrayList<>();
 
     @Builder
     ProjectEntity(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    @Builder(builderMethodName = "toEntityBuilder", builderClassName = "toEntityBuilder")
+    ProjectEntity(ProjectDTO projectDTO) {
+        this.name = projectDTO.getName();
+        this.description = projectDTO.getDescription();
     }
 }
