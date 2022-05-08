@@ -3,7 +3,6 @@ package com.intellijo.proup.project.service;
 import com.intellijo.proup.project.dto.ProjectDTO;
 import com.intellijo.proup.project.entity.ProjectEntity;
 import com.intellijo.proup.project.repository.ProjectRepository;
-import com.intellijo.proup.project.repository.ProjectRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProjectService {
     private final ProjectRepository projectRepository;
-    private final ProjectRepositoryImpl projectRepositoryImpl;
 
     /**
      * 프로젝트를 생성하는 메소드

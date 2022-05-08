@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,11 +38,11 @@ class ProjectServiceTests {
         assertThat(projectDTO.getId()).isEqualTo(1L);
     }
 
-    @Test
-    @Order(3)
-    void query_test() {
-        List<ProjectDTO> projectList = service.getProjectList();
-    }
+//    @Test
+//    @Order(3)
+//    void query_test() {
+//        List<ProjectDTO> projectList = service.getProjectList();
+//    }
 
     @Test
     void 프로젝트_삭제_테스트() {
