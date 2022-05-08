@@ -58,9 +58,7 @@ jobs:
           host: ${{ secrets.HOSTNAME }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
-          command: |
-            whoami
-            ll   
+          command: sudo docker-compose up
 
       - name: action-slack
         uses: 8398a7/action-slack@v3
