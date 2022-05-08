@@ -35,7 +35,7 @@ jobs:
   
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu 20.04
     
     steps:
       - uses: actions/checkout@v2
