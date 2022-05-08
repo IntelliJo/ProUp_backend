@@ -3,6 +3,7 @@ package com.intellijo.proup.project.service;
 import com.intellijo.proup.project.dto.ProjectDTO;
 import com.intellijo.proup.project.entity.ProjectEntity;
 import com.intellijo.proup.project.repository.ProjectRepository;
+import com.intellijo.proup.project.repository.ProjectRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -13,19 +14,28 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final ProjectRepositoryImpl projectRepositoryImpl;
 
     /**
      * 프로젝트를 생성하는 메소드
      *
-     * @param projectEntity
+     * @param projectDTO
      * @return
      */
-    public ProjectDTO createProject(ProjectEntity projectEntity) {
+    public ProjectDTO createProject(ProjectDTO projectDTO) {
+        ProjectEntity projectEntity = ProjectEntity.toEntityBuilder().projectDTO(projectDTO).build();
+
         ProjectEntity createdProject = projectRepository.save(projectEntity);
 
         return ProjectDTO.toDTOBuilder().project(createdProject).build();
     }
 
+    /**
+     * index로 프로젝트를 조회하는 메소드
+     *
+     * @param index
+     * @return
+     */
     public ProjectDTO getProjectById(long index) {
         Optional<ProjectEntity> projectEntity = projectRepository.findById(index);
 
@@ -34,14 +44,21 @@ public class ProjectService {
                 build();
     }
 
+    /**
+     * index로 프로젝트를 삭제하는 메소드
+     *
+     * @param index
+     * @return
+     */
     public Boolean deleteProjectById(long index) {
         boolean result;
         try {
             projectRepository.deleteById(index);
             result = true;
-        }catch (IllegalArgumentException | EmptyResultDataAccessException exception) {
+        } catch (IllegalArgumentException | EmptyResultDataAccessException exception) {
             result = false;
         }
         return result;
     }
+
 }
