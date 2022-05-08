@@ -44,6 +44,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
           HOSTNAME: ${{ secrets.HOSTNAME }}
           USERNAME: ${{ secrets.USERNAME }}
+          AWS_DEFAULT_REGION: ap-northeast-2
           
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
