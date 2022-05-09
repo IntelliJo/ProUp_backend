@@ -5,6 +5,7 @@ import com.intellijo.proup.member.entity.MemberEntity;
 import com.intellijo.proup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Service
 @RequiredArgsConstructor
@@ -13,7 +14,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberDTO createMember(MemberDTO memberDTO){
+    public MemberDTO memberJoin(MemberDTO memberDTO){
         MemberEntity memberEntity = memberRepository.save(
                 MemberEntity
                         .toEntityBuilder()
