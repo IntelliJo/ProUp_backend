@@ -1,17 +1,20 @@
 package com.intellijo.proup.project.dto;
 
 import com.intellijo.proup.project.entity.ProjectEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ProjectDTO {
     private Long id;
     private String name;
     private String description;
-    private List<StackDTO> stackList;
+//    private List<StackDTO> stackList;
 
     @Builder(builderMethodName = "toDTOBuilder", builderClassName = "toDTOBuilder")
     ProjectDTO (ProjectEntity project) {

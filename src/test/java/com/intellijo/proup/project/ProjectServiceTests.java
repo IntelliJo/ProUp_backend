@@ -1,7 +1,6 @@
 package com.intellijo.proup.project;
 
 import com.intellijo.proup.project.dto.ProjectDTO;
-import com.intellijo.proup.project.entity.ProjectEntity;
 import com.intellijo.proup.project.service.ProjectService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -24,15 +23,11 @@ class ProjectServiceTests {
     @Test
     @Order(1)
     void 프로젝트_등록_테스트() {
-        ProjectEntity projectEntity = ProjectEntity.builder()
-                .name("샘플 프로젝트")
-                .description("샘플 프로젝트의 설명")
-                .build();
+        ProjectDTO projectDTO = ProjectDTO.builder().name("test").description("test").build();
+        ProjectDTO createdProject = service.createProject(projectDTO);
 
-        ProjectDTO createdProject = service.createProject(projectEntity);
-
-        assertThat(createdProject.getName()).isEqualTo(projectEntity.getName());
-        assertThat(createdProject.getDescription()).isEqualTo(projectEntity.getDescription());
+        assertThat(createdProject.getName()).isEqualTo(projectDTO.getName());
+        assertThat(createdProject.getDescription()).isEqualTo(projectDTO.getDescription());
     }
 
     @Test
@@ -43,6 +38,12 @@ class ProjectServiceTests {
         assertThat(projectDTO.getId()).isEqualTo(1L);
     }
 
+//    @Test
+//    @Order(3)
+//    void query_test() {
+//        List<ProjectDTO> projectList = service.getProjectList();
+//    }
+
     @Test
     void 프로젝트_삭제_테스트() {
         Boolean result = service.deleteProjectById(1L);
@@ -50,6 +51,8 @@ class ProjectServiceTests {
         assertTrue(result);
 
         assertFalse(service.deleteProjectById(1L));
-        assertThrows(NullPointerException.class,() -> service.getProjectById(1L));
+        assertThrows(NullPointerException.class, () -> service.getProjectById(1L));
     }
+
+
 }
