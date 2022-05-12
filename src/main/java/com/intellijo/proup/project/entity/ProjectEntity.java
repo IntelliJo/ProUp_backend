@@ -29,8 +29,15 @@ public class ProjectEntity extends BaseEntity {
     }
 
     @Builder(builderMethodName = "toEntityBuilder", builderClassName = "toEntityBuilder")
-    ProjectEntity(ProjectDTO projectDTO) {
+    ProjectEntity(ProjectDTO.ProjectRequestDTO projectDTO) {
         this.name = projectDTO.getName();
         this.description = projectDTO.getDescription();
     }
+
+    public ProjectEntity updateEntity(ProjectDTO.ProjectUpdateDTO updateDTO) {
+        this.name = updateDTO.getName();
+        this.description = updateDTO.getDescription();
+        return this;
+    }
+
 }
