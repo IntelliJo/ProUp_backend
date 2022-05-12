@@ -18,7 +18,12 @@
 
 Project 전체조회
 
-operation::getAllProject[snippets='http-request,response-fields']
+operation::getProjectList[snippets='http-request,request-parameters,response-body,response-fields']
+
+[[get_project_by_id]]
+== get Project by Id
+
+operation::getProjectById[snippets='http-request,path-parameters,response-body,response-fields']
 
 [[create_project]]
 == create Project
@@ -32,4 +37,11 @@ operation::createProject[snippets='http-request,response-body,response-fields']
 
 프로젝트 수정
 
-operation::updateProject[snippets='http-request,response-fields']
+operation::updateProject[snippets='http-request,path-parameters,request-fields,response-body,response-fields']
+
+[[delete_project]]
+== delete Project
+
+프로젝트 삭제
+
+operation::deleteProjectById[snippets='http-request,path-parameters,response-body']
