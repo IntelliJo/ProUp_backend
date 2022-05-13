@@ -6,7 +6,7 @@ import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
@@ -20,7 +20,7 @@ public class TransactionAspect {
 
     private static final String AOP_TRANSACTION_METHOD_NAME = "*";
     private static final String AOP_TRANSACTION_EXPRESSION = "execution(* *..*.service.*Service.*(..))";
-    PlatformTransactionManager transactionManager;
+    TransactionManager transactionManager;
 
     @Bean
     public TransactionInterceptor transactionAdvice() {
