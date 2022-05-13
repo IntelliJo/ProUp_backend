@@ -42,7 +42,9 @@ jobs:
           host: ${{ secrets.HOSTNAME }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
-          command: sudo docker-compose up -d
+          command: |
+            sudo docker pull brinst07/proup_api
+            sudo docker-compose up -d
 
       - name: action-slack
         uses: 8398a7/action-slack@v3
