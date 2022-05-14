@@ -1,0 +1,25 @@
+= proUp Project API Server Rest API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[[overview]]
+= Member 관련 API
+
+회원 관련한 API입니다.
+
+[[all_project]]
+== CreateMember
+
+회원가입
+
+operation::memberJoin[snippets='http-request,response-fields']
+
+[[memberJoin]]
+== memberJoin
+
