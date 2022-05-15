@@ -4,6 +4,7 @@ import com.intellijo.proup.member.dto.MemberDTO;
 import com.intellijo.proup.member.entity.MemberEntity;
 import com.intellijo.proup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 

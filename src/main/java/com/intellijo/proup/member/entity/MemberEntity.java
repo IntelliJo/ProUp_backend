@@ -1,7 +1,6 @@
 package com.intellijo.proup.member.entity;
 
 import com.intellijo.proup.common.entity.BaseEntity;
-import com.intellijo.proup.member.dto.MemberDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,6 @@ public class MemberEntity extends BaseEntity {
     @Builder
     MemberEntity (String name, String pw, String adr, String nickname) {
         this.name = name;
-        this.pw = pw;
         this.adr = adr;
         this.nickname = nickname;
     }

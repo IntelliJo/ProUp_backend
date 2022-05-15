@@ -4,7 +4,6 @@ import com.intellijo.proup.member.entity.MemberEntity;
 import lombok.*;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
 public class MemberDTO {
@@ -16,6 +15,7 @@ public class MemberDTO {
 
     @Builder(builderClassName = "toDTOBuilder", builderMethodName = "toDTOBuilder")
     MemberDTO(MemberEntity memberEntity){
+        this.id = memberEntity.getId();
         this.name = memberEntity.getName();
         this.pw = memberEntity.getPw();
         this.adr = memberEntity.getAdr();
