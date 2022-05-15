@@ -26,20 +26,18 @@ public class MemberEntity extends BaseEntity {
 
     // 테스트용 빌더
     @Builder
-    MemberEntity (String name, String pw, String adr, String nickname) {
+    MemberEntity (Long id, String name, String pw, String adr, String nickname) {
+        this.id = id;
         this.name = name;
+        this.pw = pw;
         this.adr = adr;
         this.nickname = nickname;
     }
 
-    @Builder(builderClassName = "toEntityBuilder", builderMethodName = "toEntityBuilder")
-    MemberEntity (MemberDTO memberDTO){
-        this.name = memberDTO.getName();
-        this.pw = memberDTO.getPw();
-        this.adr = memberDTO.getAdr();
-        this.nickname = memberDTO.getNickname();
+    public void memberUpdate(String name, String adr, String nickname){
+        this.name = name;
+        this.adr = adr;
+        this.nickname = nickname;
     }
-
-
 
 }
