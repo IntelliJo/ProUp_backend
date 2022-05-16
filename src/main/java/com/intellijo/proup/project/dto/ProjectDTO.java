@@ -1,7 +1,6 @@
 package com.intellijo.proup.project.dto;
 
 import com.intellijo.proup.project.entity.ProjectEntity;
-import com.intellijo.proup.project.entity.ProjectStackEntity;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -26,7 +25,7 @@ public class ProjectDTO {
             this.id = project.getId();
             this.name = project.getName();
             this.description = project.getDescription();
-            this.stackList = project.getStacks().stream().map(ProjectStackEntity::getId).collect(Collectors.toList());
+            this.stackList = project.getStacks().stream().map(projectStackEntity -> projectStackEntity.getStack().getId()).collect(Collectors.toList());
         }
 
         public ProjectEntity convertEntity(ProjectInfoDTO projectInfoDTO) {
