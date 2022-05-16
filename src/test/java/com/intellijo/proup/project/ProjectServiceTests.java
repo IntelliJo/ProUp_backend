@@ -2,7 +2,9 @@ package com.intellijo.proup.project;
 
 import com.intellijo.proup.project.dto.ProjectDTO;
 import com.intellijo.proup.project.entity.ProjectEntity;
+import com.intellijo.proup.project.entity.StackEntity;
 import com.intellijo.proup.project.repository.ProjectRepository;
+import com.intellijo.proup.project.repository.StackRepository;
 import com.intellijo.proup.project.service.ProjectService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,6 +28,8 @@ class ProjectServiceTests {
     private ProjectService service;
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private StackRepository stackRepository;
 
     List<ProjectEntity> create_dummy_projects() {
         ProjectEntity projectEntity1 = ProjectEntity.builder()
@@ -64,13 +69,21 @@ class ProjectServiceTests {
         return projectRepository.save(ProjectEntity.builder().name("testProject").description("test").build());
     }
 
+    List<Long> create_dummy_stack() {
+        return stackRepository.saveAll(List.of(
+                StackEntity.builder().name("java").description("java").build(),
+                StackEntity.builder().name("spring").description("spring").build()
+        )).stream().map(StackEntity::getId).collect(Collectors.toList());
+    }
+
     @Test
     void 프로젝트_등록_테스트() {
-        ProjectDTO.ProjectRequestDTO projectDTO = ProjectDTO.ProjectRequestDTO.builder().name("test").description("test").build();
+        ProjectDTO.ProjectRequestDTO projectDTO = ProjectDTO.ProjectRequestDTO.builder().name("test").description("test").stackList(create_dummy_stack()).build();
         ProjectDTO.ProjectInfoDTO createdProject = service.createProject(projectDTO);
 
         assertThat(createdProject.getName()).isEqualTo(projectDTO.getName());
         assertThat(createdProject.getDescription()).isEqualTo(projectDTO.getDescription());
+        assertThat(createdProject.getStackList()).isEqualTo(projectDTO.getStackList());
     }
 
     @Test

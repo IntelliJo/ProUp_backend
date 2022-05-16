@@ -1,7 +1,9 @@
 package com.intellijo.proup.project.service;
 
 import com.intellijo.proup.project.dto.ProjectDTO;
+import com.intellijo.proup.project.dto.StackDTO;
 import com.intellijo.proup.project.entity.ProjectEntity;
+import com.intellijo.proup.project.entity.ProjectStackEntity;
 import com.intellijo.proup.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,10 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final StackService stackService;
 
     /**
      * 프로젝트를 생성하는 메소드
@@ -21,11 +26,20 @@ public class ProjectService {
      * @return
      */
     public ProjectDTO.ProjectInfoDTO createProject(ProjectDTO.ProjectRequestDTO projectDTO) {
-
+        List<StackDTO> projectStackList = stackService.getStackListByIds(projectDTO.getStackList());
         ProjectEntity projectEntity = projectRepository.save(ProjectEntity.toEntityBuilder().projectDTO(projectDTO).build());
+
+        projectStackList.forEach(stackDTO ->
+                projectEntity.addStack(
+                        ProjectStackEntity.builder()
+                                .project(projectEntity)
+                                .stack(stackDTO.convertEntity())
+                                .build()
+                ));
 
         return ProjectDTO.ProjectInfoDTO.toDTOBuilder().project(projectEntity).build();
     }
+
 
     /**
      * index로 프로젝트를 조회하는 메소드
