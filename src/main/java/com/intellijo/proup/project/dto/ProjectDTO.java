@@ -1,10 +1,12 @@
 package com.intellijo.proup.project.dto;
 
 import com.intellijo.proup.project.entity.ProjectEntity;
+import com.intellijo.proup.project.entity.ProjectStackEntity;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProjectDTO {
@@ -17,13 +19,22 @@ public class ProjectDTO {
         private Long id;
         private String name;
         private String description;
-        private List<StackDTO> stackList;
+        private List<Long> stackList;
 
         @Builder(builderMethodName = "toDTOBuilder", builderClassName = "toDTOBuilder")
         ProjectInfoDTO(ProjectEntity project) {
             this.id = project.getId();
             this.name = project.getName();
             this.description = project.getDescription();
+            this.stackList = project.getStacks().stream().map(ProjectStackEntity::getId).collect(Collectors.toList());
+        }
+
+        public ProjectEntity convertEntity(ProjectInfoDTO projectInfoDTO) {
+            return ProjectEntity.builder()
+                    .id(projectInfoDTO.getId())
+                    .name(projectInfoDTO.getName())
+                    .description(projectInfoDTO.getDescription())
+                    .build();
         }
     }
 
@@ -35,7 +46,8 @@ public class ProjectDTO {
         @NotNull
         private String name;
         private String description;
-        private List<StackDTO> stackList;
+        @NotNull
+        private List<Long> stackList;
     }
 
     @Builder
