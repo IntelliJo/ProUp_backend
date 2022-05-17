@@ -53,7 +53,7 @@ public class MemberController {
      * @return MemberDTO
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<MemberDTO.MemberResponseDTO> memberUpdate(@PathVariable("id") Long id, @Valid MemberDTO.MemberRequestDTO memberRequest){
+    public ResponseEntity<MemberDTO.MemberResponseDTO> memberUpdate(@PathVariable("id") Long id,@RequestBody @Valid MemberDTO.MemberRequestDTO memberRequest){
         return new ResponseEntity<>(memberService.memberUpdate(id, memberRequest), HttpStatus.OK);
     }
 

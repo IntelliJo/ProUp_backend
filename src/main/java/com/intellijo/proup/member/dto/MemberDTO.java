@@ -4,6 +4,7 @@ import com.intellijo.proup.member.entity.MemberEntity;
 import lombok.*;
 
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
 public class MemberDTO {
@@ -22,30 +23,17 @@ public class MemberDTO {
         this.nickname = memberEntity.getNickname();
     }
 
-    @Builder
-    public MemberDTO(Long id, String name, String pw, String adr, String nickname){
-        this.id = id;
-        this.name = name;
-        this.pw = pw;
-        this.adr = adr;
-        this.nickname = nickname;
-    }
 
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class MemberRequestDTO{
         private String name;
         private String pw;
         private String adr;    // 회원 주소
         private String nickname;   // 회원 닉네임
 
-        @Builder
-        public MemberRequestDTO(String name, String pw, String adr, String nickname){
-            this.name = name;
-            this.pw = pw;
-            this.adr = adr;
-            this.nickname = nickname;
-        }
 
         public MemberEntity memberEntityConverter(){
             return MemberEntity.builder()
@@ -61,6 +49,8 @@ public class MemberDTO {
 
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class MemberResponseDTO{
         private Long id;
         private String name;   // 회원 이름
@@ -75,13 +65,6 @@ public class MemberDTO {
             this.nickname = memberEntity.getNickname();
         }
 
-        @Builder
-        public MemberResponseDTO(Long id, String name, String adr, String nickname){
-            this.id = id;
-            this.name = name;
-            this.adr = adr;
-            this.nickname = nickname;
-        }
     }
 
 }

@@ -65,7 +65,7 @@ public class MemberService {
 
         MemberEntity findMember = memberRepository.findById(id).orElseThrow(()
                 ->new IllegalArgumentException("없는 회원...."));
-        findMember.memberUpdate(memberDTO.getAdr(), memberDTO.getNickname());
+        findMember.memberUpdate(memberDTO.getAdr(), memberDTO.getNickname(), memberDTO.getPw());
 
         return MemberDTO.MemberResponseDTO.toDTOBuilder().memberEntity(findMember).build();
     }
