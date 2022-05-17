@@ -13,13 +13,30 @@
 
 회원 관련한 API입니다.
 
-[[all_project]]
-== CreateMember
-
-회원가입
-
-operation::memberJoin[snippets='http-request,response-fields']
-
 [[memberJoin]]
 == memberJoin
 
+회원 가입
+
+operation::memberJoin[snippets='http-request,response-fields']
+
+[[memberDelete]]
+== memberDelete
+
+회원 삭제
+
+operation::memberDelete[snippets='http-request,response-fields']
+
+[[memberFind]]
+== memberFind
+
+회원 조회
+
+operation::memberFind[snippets='http-request,response-fields']
+
+[[memberUpdate]]
+== memberUpdate
+
+회원 수정
+
+operation::memberUpdate[snippets='http-request,response-fields']

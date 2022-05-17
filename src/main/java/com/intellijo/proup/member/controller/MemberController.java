@@ -22,7 +22,7 @@ public class MemberController {
      * @return MemberDTO
      */
     @PostMapping()
-    public ResponseEntity<MemberDTO> memberJoin(@RequestBody @Valid MemberDTO memberDTO){
+    public ResponseEntity<MemberDTO.MemberResponseDTO> memberJoin(@RequestBody @Valid MemberDTO memberDTO){
         return new ResponseEntity<>(memberService.memberJoin(memberDTO), HttpStatus.OK);
     }
 
@@ -32,7 +32,7 @@ public class MemberController {
      * @return Long id
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> memberDelete(@PathVariable Long id){
+    public ResponseEntity<Boolean> memberDelete(@PathVariable("id") Long id){
         return new ResponseEntity<>(memberService.memberDelete(id), HttpStatus.OK);
     }
 
@@ -42,7 +42,7 @@ public class MemberController {
      * @return MemberDTO
      */
     @GetMapping("/{id}")
-    public ResponseEntity<MemberDTO> memberFind(@PathVariable Long id){
+    public ResponseEntity<MemberDTO.MemberResponseDTO> memberFind(@PathVariable("id") Long id){
         return new ResponseEntity<>(memberService.memberFind(id), HttpStatus.OK);
     }
 
@@ -53,7 +53,7 @@ public class MemberController {
      * @return MemberDTO
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<MemberDTO> memberUpdate(@PathVariable Long id, @Valid MemberDTO.MemberRequestDTO memberRequest){
+    public ResponseEntity<MemberDTO.MemberResponseDTO> memberUpdate(@PathVariable("id") Long id, @Valid MemberDTO.MemberRequestDTO memberRequest){
         return new ResponseEntity<>(memberService.memberUpdate(id, memberRequest), HttpStatus.OK);
     }
 

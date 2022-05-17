@@ -6,9 +6,6 @@ import com.intellijo.proup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.lang.reflect.Member;
 
 @Service
 @RequiredArgsConstructor
@@ -21,13 +18,13 @@ public class MemberService {
 
     /**
      * 회원 추가
+     *
      * @param memberDTO
      * @return memberDTO
      */
-    public MemberDTO memberJoin(MemberDTO memberDTO){
-        MemberEntity memberEntity = MemberDTO.memberEntityConverter(memberDTO);
-        MemberEntity memberSave = memberRepository.save(memberEntity);
-        return MemberDTO.toDTOBuilder()
+    public MemberDTO.MemberResponseDTO memberJoin(MemberDTO memberDTO){
+        MemberEntity memberSave = memberRepository.save(MemberDTO.memberEntityConverter(memberDTO));
+        return MemberDTO.MemberResponseDTO.toDTOBuilder()
                 .memberEntity(memberSave).build();
     }
 
@@ -51,10 +48,10 @@ public class MemberService {
      * @param memberId
      * @return MemberDTO
      */
-    public MemberDTO memberFind(Long memberId){
+    public MemberDTO.MemberResponseDTO memberFind(Long memberId){
         MemberEntity findMember = memberRepository.findById(memberId).orElseThrow(
                 () -> new IllegalArgumentException(String.format(nullError,memberId)));
-        return MemberDTO.toDTOBuilder().memberEntity(findMember).build();
+        return new MemberDTO.MemberResponseDTO().toDTOBuilder().memberEntity(findMember).build();
     }
 
     /**
@@ -63,13 +60,16 @@ public class MemberService {
      * @param memberDTO
      * @return MemberDTO
      */
-    public MemberDTO memberUpdate(Long id, MemberDTO.MemberRequestDTO memberDTO){
-        MemberDTO memberFind = memberFind(id);
-        MemberEntity updateMember = MemberDTO.memberEntityConverter(memberFind);
-        updateMember.memberUpdate(memberDTO.getName(), memberDTO.getAdr(), memberDTO.getNickname());
+    public MemberDTO.MemberResponseDTO memberUpdate(Long id, MemberDTO.MemberRequestDTO memberDTO){
 
-        return MemberDTO.toDTOBuilder().memberEntity(updateMember).build();
+        MemberEntity findMember = memberRepository.findById(id).orElseThrow(()
+                ->new IllegalArgumentException("없는 회원...."));
+        findMember.memberUpdate(memberDTO.getAdr(), memberDTO.getNickname());
+
+        return MemberDTO.MemberResponseDTO.toDTOBuilder().memberEntity(findMember).build();
     }
+
+    
 
 
 

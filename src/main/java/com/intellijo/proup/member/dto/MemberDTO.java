@@ -45,8 +45,34 @@ public class MemberDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class MemberRequestDTO{
-        private String name;   // 회원 이름
         private String adr;    // 회원 주소
         private String nickname;   // 회원 닉네임
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class MemberResponseDTO{
+        private Long id;
+        private String name;   // 회원 이름
+        private String adr;    // 회원 주소
+        private String nickname;   // 회원 닉네임
+
+        @Builder(builderClassName = "toDTOBuilder", builderMethodName = "toDTOBuilder")
+        MemberResponseDTO(MemberEntity memberEntity){
+            this.id = memberEntity.getId();
+            this.name = memberEntity.getName();
+            this.adr = memberEntity.getAdr();
+            this.nickname = memberEntity.getNickname();
+        }
+
+        @Builder
+        public MemberResponseDTO(Long id, String name, String adr, String nickname){
+            this.id = id;
+            this.name = name;
+            this.adr = adr;
+            this.nickname = nickname;
+        }
+    }
+
 }
+
