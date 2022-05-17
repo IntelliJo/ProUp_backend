@@ -17,6 +17,7 @@ public class ExceptionHandler {
 
     String resource = "properties/code.properties";
     Properties properties = new Properties();
+
     @org.springframework.web.bind.annotation.ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
