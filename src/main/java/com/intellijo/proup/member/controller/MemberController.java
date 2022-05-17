@@ -18,12 +18,12 @@ public class MemberController {
 
     /**
      * 회원 추가
-     * @param memberDTO
-     * @return MemberDTO
+     * @param memberRequestDTO
+     * @return MemberResponseDTO
      */
     @PostMapping()
-    public ResponseEntity<MemberDTO.MemberResponseDTO> memberJoin(@RequestBody @Valid MemberDTO memberDTO){
-        return new ResponseEntity<>(memberService.memberJoin(memberDTO), HttpStatus.OK);
+    public ResponseEntity<MemberDTO.MemberResponseDTO> memberJoin(@RequestBody @Valid MemberDTO.MemberRequestDTO memberRequestDTO){
+        return new ResponseEntity<>(memberService.memberJoin(memberRequestDTO), HttpStatus.OK);
     }
 
     /**

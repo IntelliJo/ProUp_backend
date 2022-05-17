@@ -1,6 +1,7 @@
 package com.intellijo.proup.member;
 
 import com.intellijo.proup.member.dto.MemberDTO;
+import com.intellijo.proup.member.entity.MemberEntity;
 import com.intellijo.proup.member.service.MemberService;
 import com.intellijo.proup.project.entity.ProjectEntity;
 import org.assertj.core.api.Assertions;
@@ -11,20 +12,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-public class MemberServiceTests {
+class MemberServiceTests {
 
     @Autowired
     private MemberService memberService;
 
-    MemberDTO testMember(){
-        return MemberDTO.builder()
-                .id(1L)
-                .pw("pwTest")
-                .name("nameTest")
-                .adr("adrTest")
-                .nickname("nickNameTest")
-                .build();
 
+    MemberDTO.MemberRequestDTO testMember(){
+        return MemberDTO.MemberRequestDTO.builder()
+                .name("testName")
+                .pw("testPw")
+                .adr("testAdr")
+                .nickname("testNickname").build();
+    }
+
+    MemberDTO.MemberRequestDTO updateRequest(){
+        return MemberDTO.MemberRequestDTO.builder()
+                .adr("updateAdr")
+                .pw("updatePw")
+                .nickname("updateNick").build();
     }
 
     @Test
@@ -50,14 +56,11 @@ public class MemberServiceTests {
     void 회원_정보_수정_테스트(){
         //given
         MemberDTO.MemberResponseDTO joinMember = memberService.memberJoin(testMember());
-        MemberDTO.MemberRequestDTO updateInfo = new MemberDTO.MemberRequestDTO("updateADR", "updateNick");
-
-        // when
-        MemberDTO.MemberResponseDTO updateMember = memberService.memberUpdate(joinMember.getId(), updateInfo);
-        // then
-        Assertions.assertThat(updateMember.getAdr()).isEqualTo(updateInfo.getAdr());
-        Assertions.assertThat(updateMember.getNickname()).isEqualTo(updateInfo.getNickname());
-
+        //when
+        MemberDTO.MemberResponseDTO updateMember = memberService.memberUpdate(joinMember.getId(), updateRequest());
+        //then
+        Assertions.assertThat(updateRequest().getNickname()).isEqualTo(updateMember.getNickname());
+        Assertions.assertThat(updateRequest().getAdr()).isEqualTo(updateMember.getAdr());
     }
 
     @Test

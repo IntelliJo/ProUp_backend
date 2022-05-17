@@ -25,7 +25,7 @@ operation::memberJoin[snippets='http-request,response-fields']
 
 회원 삭제
 
-operation::memberDelete[snippets='http-request,response-fields']
+operation::memberDelete[snippets='http-request']
 
 [[memberFind]]
 == memberFind

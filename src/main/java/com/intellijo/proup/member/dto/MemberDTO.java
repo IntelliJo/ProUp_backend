@@ -22,16 +22,6 @@ public class MemberDTO {
         this.nickname = memberEntity.getNickname();
     }
 
-    public static MemberEntity memberEntityConverter(MemberDTO memberDTO){
-        return MemberEntity.builder()
-                .id(memberDTO.getId())
-                .pw(memberDTO.getPw())
-                .name(memberDTO.getName())
-                .adr(memberDTO.getAdr())
-                .nickname(memberDTO.getNickname())
-                .build();
-    }
-
     @Builder
     public MemberDTO(Long id, String name, String pw, String adr, String nickname){
         this.id = id;
@@ -42,11 +32,31 @@ public class MemberDTO {
     }
 
     @Getter
-    @AllArgsConstructor
     @NoArgsConstructor
     public static class MemberRequestDTO{
+        private String name;
+        private String pw;
         private String adr;    // 회원 주소
         private String nickname;   // 회원 닉네임
+
+        @Builder
+        public MemberRequestDTO(String name, String pw, String adr, String nickname){
+            this.name = name;
+            this.pw = pw;
+            this.adr = adr;
+            this.nickname = nickname;
+        }
+
+        public MemberEntity memberEntityConverter(){
+            return MemberEntity.builder()
+                    .pw(this.pw)
+                    .name(this.name)
+                    .adr(this.adr)
+                    .nickname(this.nickname)
+                    .build();
+        }
+
+
     }
 
     @Getter

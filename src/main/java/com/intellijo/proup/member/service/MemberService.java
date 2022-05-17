@@ -22,8 +22,9 @@ public class MemberService {
      * @param memberDTO
      * @return memberDTO
      */
-    public MemberDTO.MemberResponseDTO memberJoin(MemberDTO memberDTO){
-        MemberEntity memberSave = memberRepository.save(MemberDTO.memberEntityConverter(memberDTO));
+    public MemberDTO.MemberResponseDTO memberJoin(MemberDTO.MemberRequestDTO memberRequestDTO){
+
+        MemberEntity memberSave = memberRepository.save(memberRequestDTO.memberEntityConverter());
         return MemberDTO.MemberResponseDTO.toDTOBuilder()
                 .memberEntity(memberSave).build();
     }
@@ -51,7 +52,7 @@ public class MemberService {
     public MemberDTO.MemberResponseDTO memberFind(Long memberId){
         MemberEntity findMember = memberRepository.findById(memberId).orElseThrow(
                 () -> new IllegalArgumentException(String.format(nullError,memberId)));
-        return new MemberDTO.MemberResponseDTO().toDTOBuilder().memberEntity(findMember).build();
+        return MemberDTO.MemberResponseDTO.toDTOBuilder().memberEntity(findMember).build();
     }
 
     /**
