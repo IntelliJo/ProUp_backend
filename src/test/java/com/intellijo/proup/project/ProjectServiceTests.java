@@ -120,7 +120,7 @@ class ProjectServiceTests {
         ProjectDTO.ProjectRequestDTO projectDTO = ProjectDTO.ProjectRequestDTO.builder().name("test").description("test").stackList(create_dummy_stack()).build();
         ProjectDTO.ProjectInfoDTO projectInfoDTO = service.insertProject(projectDTO);
 
-        ProjectDTO.ProjectUpdateDTO updateDTO = ProjectDTO.ProjectUpdateDTO.builder().
+        ProjectDTO.ProjectRequestDTO updateDTO = ProjectDTO.ProjectRequestDTO.builder().
                 name("updateProejct").description("test").stackList(List.of(1L)).build();
 
         ProjectDTO.ProjectInfoDTO updateProject = service.updateProject(projectInfoDTO.getId(), updateDTO);

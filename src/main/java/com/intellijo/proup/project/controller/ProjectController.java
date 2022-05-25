@@ -64,7 +64,7 @@ public class ProjectController {
      * @return
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<ProjectDTO.ProjectInfoDTO> updateProjectById(@PathVariable("id") Long id, @Valid @RequestBody ProjectDTO.ProjectUpdateDTO updateDTO) {
+    public ResponseEntity<ProjectDTO.ProjectInfoDTO> updateProjectById(@PathVariable("id") Long id, @Valid @RequestBody ProjectDTO.ProjectRequestDTO updateDTO) {
         return new ResponseEntity<>(service.updateProject(id, updateDTO), HttpStatus.OK);
     }
 }

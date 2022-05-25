@@ -99,7 +99,7 @@ public class ProjectService {
         return projectEntityPage.map(project -> ProjectDTO.ProjectInfoDTO.toDTOBuilder().project(project).build());
     }
 
-    public ProjectDTO.ProjectInfoDTO updateProject(Long projectId, ProjectDTO.ProjectUpdateDTO projectDTO) {
+    public ProjectDTO.ProjectInfoDTO updateProject(Long projectId, ProjectDTO.ProjectRequestDTO projectDTO) {
         //프로젝트id로 조회
         ProjectEntity projectEntity = projectRepository.findById(projectId).orElseThrow(IllegalArgumentException::new);
         //update

@@ -35,7 +35,7 @@ public class ProjectEntity extends BaseEntity {
         this.description = projectDTO.getDescription();
     }
 
-    public void updateEntity(ProjectDTO.ProjectUpdateDTO updateDTO) {
+    public void updateEntity(ProjectDTO.ProjectRequestDTO updateDTO) {
         this.name = updateDTO.getName();
         this.description = updateDTO.getDescription();
     }
