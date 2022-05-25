@@ -1,6 +1,7 @@
 package com.intellijo.proup.project.entity;
 
 import com.intellijo.proup.common.entity.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "TB_STACK")
-@NoArgsConstructor
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StackEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +24,4 @@ public class StackEntity extends BaseEntity {
     @OneToMany(mappedBy = "stack", fetch = FetchType.LAZY)
     private List<ProjectStackEntity> projects = new ArrayList<>();
 
-    @Builder
-    StackEntity(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 }
