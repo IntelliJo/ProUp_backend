@@ -11,6 +11,14 @@ plugins {
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
+	id "jacoco"
+	id "org.sonarqube" version "3.3"
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
 }
 
 configurations {
