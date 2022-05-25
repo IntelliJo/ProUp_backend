@@ -18,16 +18,22 @@ public class ProjectController {
     private final ProjectService service;
 
     /**
-     * 프로젝트 등록 컨트롤러
+     * 프로젝트 등록 API
      *
-     * @param projectDTO
+     * @param projectDTO 프로젝트 등록 dto
      * @return
      */
     @PostMapping()
     public ResponseEntity<ProjectDTO.ProjectInfoDTO> insertProject(@Valid @RequestBody ProjectDTO.ProjectRequestDTO projectDTO) {
-        return new ResponseEntity<>(service.createProject(projectDTO), HttpStatus.OK);
+        return new ResponseEntity<>(service.insertProject(projectDTO), HttpStatus.OK);
     }
 
+    /**
+     * 프로젝트 전체 조회 API
+     *
+     * @param pageable 페이지네이션을 위한 객체
+     * @return
+     */
     @GetMapping()
     public ResponseEntity<Page<ProjectDTO.ProjectInfoDTO>> getProjectList(Pageable pageable) {
         return new ResponseEntity<>(service.getProjectList(pageable), HttpStatus.OK);
@@ -39,11 +45,24 @@ public class ProjectController {
 
     }
 
+    /**
+     * 프로젝트 id로 프로젝트를 조회하는 API
+     *
+     * @param id 프로젝트 id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(service.deleteProjectById(id), HttpStatus.OK);
     }
 
+    /**
+     * 프로젝트 수정 API
+     *
+     * @param id        프로젝트 id
+     * @param updateDTO 프로젝트 수정 dto
+     * @return
+     */
     @PatchMapping("/{id}")
     public ResponseEntity<ProjectDTO.ProjectInfoDTO> updateProjectById(@PathVariable("id") Long id, @Valid @RequestBody ProjectDTO.ProjectUpdateDTO updateDTO) {
         return new ResponseEntity<>(service.updateProject(id, updateDTO), HttpStatus.OK);
