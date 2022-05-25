@@ -52,6 +52,7 @@ class ProjectControllerTests {
                 .id(1L)
                 .name("project")
                 .description("this is sample project description")
+                .stackList(List.of(1L,2L))
                 .build();
     }
 
@@ -60,21 +61,24 @@ class ProjectControllerTests {
                 .id(1L)
                 .name("update project name")
                 .description("this is update sample project description")
+                .stackList(List.of(1L))
                 .build();
     }
 
-    Map<String, String> inputMap() {
-        Map<String, String> input = new HashMap<>();
+    Map<String, Object> inputMap() {
+        Map<String, Object> input = new HashMap<>();
         input.put("name", "project");
         input.put("description", "this is sample project description");
+        input.put("stackList",List.of(1L,2L));
 
         return input;
     }
 
-    Map<String, String> updateInputMap() {
-        Map<String, String> input = new HashMap<>();
+    Map<String, Object> updateInputMap() {
+        Map<String, Object> input = new HashMap<>();
         input.put("name", "update project name");
         input.put("description", "this is update sample project description");
+        input.put("stackList",List.of(1L));
 
         return input;
     }
@@ -82,7 +86,7 @@ class ProjectControllerTests {
     @Test
     void 프로젝트_추가_컨트롤러_테스트() throws Exception {
         //given
-        given(projectService.createProject(any())).willReturn(dummy_project());
+        given(projectService.insertProject(any())).willReturn(dummy_project());
 
         mockMvc.perform(post("/api/v1/proup/project")
                         .contentType(MediaType.APPLICATION_JSON)
