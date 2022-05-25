@@ -22,7 +22,7 @@ public class ProjectEntity extends BaseEntity {
     private Long id;
     private String name;
     private String description;
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProjectStackEntity> stacks = new ArrayList<>();
 
     public void addStack(ProjectStackEntity projectStackEntity) {
@@ -35,10 +35,9 @@ public class ProjectEntity extends BaseEntity {
         this.description = projectDTO.getDescription();
     }
 
-    public ProjectEntity updateEntity(ProjectDTO.ProjectUpdateDTO updateDTO) {
+    public void updateEntity(ProjectDTO.ProjectUpdateDTO updateDTO) {
         this.name = updateDTO.getName();
         this.description = updateDTO.getDescription();
-        return this;
     }
 
 }
