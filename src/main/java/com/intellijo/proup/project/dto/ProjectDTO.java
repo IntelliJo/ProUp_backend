@@ -3,7 +3,8 @@ package com.intellijo.proup.project.dto;
 import com.intellijo.proup.project.entity.ProjectEntity;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,21 +43,10 @@ public class ProjectDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProjectRequestDTO {
-        @NotNull
+        @NotBlank(message = "이름은 null일 수 없습니다.")
         private String name;
         private String description;
-        @NotNull
+        @NotEmpty(message = "프로젝트에 stack은 반드시 추가되어야합니다.")
         private List<Long> stackList;
     }
-
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ProjectUpdateDTO {
-        private String name;
-        private String description;
-        private List<Long> stackList;
-    }
-
 }
