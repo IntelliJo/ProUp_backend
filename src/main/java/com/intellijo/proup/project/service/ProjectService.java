@@ -5,6 +5,7 @@ import com.intellijo.proup.project.dto.StackDTO;
 import com.intellijo.proup.project.entity.ProjectEntity;
 import com.intellijo.proup.project.entity.ProjectStackEntity;
 import com.intellijo.proup.project.repository.ProjectRepository;
+import com.intellijo.proup.project.repository.ProjectStackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,18 @@ import java.util.List;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final StackService stackService;
+    private final ProjectStackRepository projectStackRepository;
+
+    /**
+     * 프로젝트 등록과 스택을 등록하는 메소드
+     *
+     * @param projectRequestDTO
+     * @return
+     */
+    public ProjectDTO.ProjectInfoDTO insertProject(ProjectDTO.ProjectRequestDTO projectRequestDTO) {
+        ProjectDTO.ProjectInfoDTO project = createProject(projectRequestDTO);
+        return addProjectStack(project.getId(), projectRequestDTO.getStackList());
+    }
 
     /**
      * 프로젝트를 생성하는 메소드
@@ -26,16 +39,35 @@ public class ProjectService {
      * @return
      */
     public ProjectDTO.ProjectInfoDTO createProject(ProjectDTO.ProjectRequestDTO projectDTO) {
-        List<StackDTO> projectStackList = stackService.getStackListByIds(projectDTO.getStackList());
         ProjectEntity projectEntity = projectRepository.save(ProjectEntity.toEntityBuilder().projectDTO(projectDTO).build());
 
+        return ProjectDTO.ProjectInfoDTO.toDTOBuilder().project(projectEntity).build();
+    }
+
+    /**
+     * 프로젝트에 스택을 록하는 메소드
+     *
+     * @param projectId
+     * @param stackIds
+     * @return
+     */
+    public ProjectDTO.ProjectInfoDTO addProjectStack(Long projectId, List<Long> stackIds) {
+        //프로젝트 entity로 조회
+        ProjectEntity projectEntity = projectRepository.findById(projectId).orElseThrow(IllegalArgumentException::new);
+        //stack를 조회
+        List<StackDTO> projectStackList = stackService.getStackListByIds(stackIds);
+        //stack 제거
+        projectStackRepository.deleteByProjectId(projectId);
+        projectEntity.getStacks().clear();
+        //project에 stack 추가
         projectStackList.forEach(stackDTO ->
                 projectEntity.addStack(
                         ProjectStackEntity.builder()
                                 .project(projectEntity)
                                 .stack(stackDTO.convertEntity())
                                 .build()
-                ));
+                )
+        );
 
         return ProjectDTO.ProjectInfoDTO.toDTOBuilder().project(projectEntity).build();
     }
@@ -68,10 +100,11 @@ public class ProjectService {
     }
 
     public ProjectDTO.ProjectInfoDTO updateProject(Long projectId, ProjectDTO.ProjectUpdateDTO projectDTO) {
-
+        //프로젝트id로 조회
         ProjectEntity projectEntity = projectRepository.findById(projectId).orElseThrow(IllegalArgumentException::new);
-
-        return ProjectDTO.ProjectInfoDTO.toDTOBuilder().project(projectEntity.updateEntity(projectDTO)).build();
+        //update
+        projectEntity.updateEntity(projectDTO);
+        return addProjectStack(projectId, projectDTO.getStackList());
     }
 
     /**
