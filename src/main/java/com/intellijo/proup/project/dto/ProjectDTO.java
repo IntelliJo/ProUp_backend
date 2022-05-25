@@ -25,14 +25,14 @@ public class ProjectDTO {
             this.id = project.getId();
             this.name = project.getName();
             this.description = project.getDescription();
-            this.stackList = project.getStacks().stream().map(projectStackEntity -> projectStackEntity.getStack().getId()).collect(Collectors.toList());
+            this.stackList = project.getStacks() != null ? project.getStacks().stream().map(projectStackEntity -> projectStackEntity.getStack().getId()).collect(Collectors.toList()) : null;
         }
 
-        public ProjectEntity convertEntity(ProjectInfoDTO projectInfoDTO) {
+        public ProjectEntity convertEntity() {
             return ProjectEntity.builder()
-                    .id(projectInfoDTO.getId())
-                    .name(projectInfoDTO.getName())
-                    .description(projectInfoDTO.getDescription())
+                    .id(this.id)
+                    .name(this.name)
+                    .description(this.description)
                     .build();
         }
     }
@@ -56,7 +56,7 @@ public class ProjectDTO {
     public static class ProjectUpdateDTO {
         private String name;
         private String description;
-        private List<StackDTO> stackList;
+        private List<Long> stackList;
     }
 
 }
